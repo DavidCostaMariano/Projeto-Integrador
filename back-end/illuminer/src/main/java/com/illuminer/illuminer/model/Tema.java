@@ -1,4 +1,4 @@
-package com.projetoensinolivre.pel.model;
+package com.illuminer.illuminer.model;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -21,10 +21,6 @@ public class Tema {
 	@Size(min = 2 , max = 50)
 	private String nome;
 	
-	@NotBlank
-	@Size(max = 100)
-	private String descricao;
-
 	public Long getId() {
 		return id;
 	}
@@ -39,16 +35,6 @@ public class Tema {
 
 	public void setNome(String nome) {
 		this.nome = nome;
-	}
-
-	public String getDescricao() {
-		return descricao;
-	}
-
-	public void setDescricao(String descricao) {
-		this.descricao = descricao;
-	}
-	
-		
+	}		
 	
 }

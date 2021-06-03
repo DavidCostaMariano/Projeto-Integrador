@@ -8,11 +8,11 @@
 		<version>2.5.0</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>com.projeto-ensino-livre</groupId>
-	<artifactId>pel</artifactId>
+	<groupId>com.illuminer</groupId>
+	<artifactId>illuminer</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>pel</name>
-	<description>Demo project for Spring Boot</description>
+	<name>illuminer</name>
+	<description>Projeto Integrador do grupo 01</description>
 	<properties>
 		<java.version>11</java.version>
 	</properties>
