@@ -60,8 +60,12 @@ public class TemaController {
 	}
 	
 	@DeleteMapping ("/{id}")
-	public void delete (@PathVariable Long id) {
+	public ResponseEntity<Void> delete (@PathVariable Long id) {
+		if (!repository.existsById(id)){
+			return ResponseEntity.notFound().build();
+		}
 		repository.deleteById(id);
+		return ResponseEntity.noContent().build();
 	}
 
 }
