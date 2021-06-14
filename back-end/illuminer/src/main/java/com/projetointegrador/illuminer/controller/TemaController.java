@@ -19,26 +19,26 @@ import com.projetointegrador.illuminer.model.Tema;
 import com.projetointegrador.illuminer.repository.TemaRepository;
 
 @RestController
-@RequestMapping("/temas")
-@CrossOrigin("*")
+@RequestMapping ("/temas")
+@CrossOrigin ("*")
 public class TemaController {
-
+	
 	@Autowired
 	private TemaRepository repository;
 	
 	@GetMapping
-	public ResponseEntity <List<Tema>> getAll (){
+	public ResponseEntity<List<Tema>> GetAll() {
 		return ResponseEntity.ok(repository.findAll());
 	}
 	
-	@GetMapping("/{id}")
-	public ResponseEntity<Tema> getById (@PathVariable Long id){
-		return repository.findById(id)
-				.map(resp -> ResponseEntity.ok(resp)).orElse(ResponseEntity.notFound().build());
+	@GetMapping ("/{id}")
+	public ResponseEntity<Tema> GetById(@PathVariable Long id){
+		return repository.findById(id).map(rest -> ResponseEntity.ok(rest))
+				.orElse(ResponseEntity.notFound().build());
 	}
 	
-	@GetMapping("/tema/{tema}")
-	public ResponseEntity<List<Tema>> getByTema (@PathVariable String tema){
+	@GetMapping ("/tema/{tema}")
+	public ResponseEntity<List<Tema>> GetByTema(@PathVariable String tema) {
 		return ResponseEntity.ok(repository.findAllByNomeContainingIgnoreCase(tema));
 	}
 	
@@ -50,17 +50,21 @@ public class TemaController {
 		return ResponseEntity.status(HttpStatus.CREATED).body(repository.save(tema));
 	}
 	
-	@PutMapping("/{id}")
+	@PutMapping ("/{id}")
 	public ResponseEntity<Tema> put (@RequestBody Tema tema, @PathVariable Long id) {
-		if(!repository.existsById(id)){
+		if (!repository.existsById(id)){
 			return ResponseEntity.notFound().build();
 		}
 		tema.setId(id);
-		return ResponseEntity.status(HttpStatus.OK).body(repository.save(tema));
+		return ResponseEntity.ok(repository.save(tema));
 	}
 	
-	@DeleteMapping("/{id}")
-	public void delete (@PathVariable Long id) {
+	@DeleteMapping ("/{id}")
+	public ResponseEntity<Void> delete (@PathVariable Long id) {
+		if (!repository.existsById(id)){
+			return ResponseEntity.notFound().build();
+		}
 		repository.deleteById(id);
+		return ResponseEntity.noContent().build();
 	}
 }

@@ -1,11 +1,11 @@
-package com.illuminer.illuminer.security;
+package com.projetointegrador.illuminer.security;
 
 import java.util.Collection;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import com.illuminer.illuminer.model.Usuario;
+import com.projetointegrador.illuminer.model.Usuario;
 
 public class UserDetailsImpl implements UserDetails {
 

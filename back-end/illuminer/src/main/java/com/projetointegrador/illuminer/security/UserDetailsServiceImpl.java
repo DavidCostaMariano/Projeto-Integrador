@@ -1,4 +1,4 @@
-package com.illuminer.illuminer.security;
+package com.projetointegrador.illuminer.security;
 
 import java.util.Optional;
 
@@ -8,8 +8,8 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import com.illuminer.illuminer.model.Usuario;
-import com.illuminer.illuminer.repository.UsuarioRepository;
+import com.projetointegrador.illuminer.model.Usuario;
+import com.projetointegrador.illuminer.repository.UsuarioRepository;
 
 @Service
 public class UserDetailsServiceImpl implements UserDetailsService {

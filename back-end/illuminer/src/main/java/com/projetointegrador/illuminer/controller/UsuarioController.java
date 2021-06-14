@@ -1,4 +1,4 @@
-package com.illuminer.illuminer.controller;
+package com.projetointegrador.illuminer.controller;
 
 import java.util.Optional;
 
@@ -12,9 +12,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.illuminer.illuminer.model.Usuario;
-import com.illuminer.illuminer.model.UsuarioLogin;
-import com.illuminer.illuminer.service.UsuarioService;
+import com.projetointegrador.illuminer.model.Usuario;
+import com.projetointegrador.illuminer.model.UsuarioLogin;
+import com.projetointegrador.illuminer.service.UsuarioService;
 
 @RestController
 @RequestMapping("/usuarios")

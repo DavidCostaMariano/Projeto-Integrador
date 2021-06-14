@@ -1,4 +1,4 @@
-package com.illuminer.illuminer.security;
+package com.projetointegrador.illuminer.security;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -31,7 +31,7 @@ public class BasicSecurityConfig extends WebSecurityConfigurerAdapter{
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http.authorizeRequests()
-		.antMatchers("/usuarios/login").permitAll()
+		.antMatchers(HttpMethod.POST,"/usuarios/login").permitAll()
 		.antMatchers(HttpMethod.POST, "/usuarios").permitAll()
 		.anyRequest().authenticated()
 		.and().httpBasic()

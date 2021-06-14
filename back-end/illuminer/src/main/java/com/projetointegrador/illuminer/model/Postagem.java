@@ -1,4 +1,4 @@
-package com.illuminer.illuminer.model;
+package com.projetointegrador.illuminer.model;
 
 import java.util.Date;
 import javax.persistence.Entity;

@@ -8,8 +8,7 @@ import org.springframework.stereotype.Repository;
 import com.projetointegrador.illuminer.model.Tema;
 
 @Repository
-public interface TemaRepository extends JpaRepository<Tema, Long> {
-	
-	List<Tema> findAllByNomeContainingIgnoreCase (String nome);
+public interface TemaRepository extends JpaRepository<Tema, Long>{
+	 List<Tema> findAllByNomeContainingIgnoreCase (String nome);
 
 }

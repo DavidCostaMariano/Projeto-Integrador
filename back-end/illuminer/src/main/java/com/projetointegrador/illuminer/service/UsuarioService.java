@@ -1,4 +1,4 @@
-package com.illuminer.illuminer.service;
+package com.projetointegrador.illuminer.service;
 
 import java.nio.charset.Charset;
 import java.util.Optional;
@@ -9,9 +9,9 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import com.illuminer.illuminer.model.Usuario;
-import com.illuminer.illuminer.model.UsuarioLogin;
-import com.illuminer.illuminer.repository.UsuarioRepository;
+import com.projetointegrador.illuminer.model.Usuario;
+import com.projetointegrador.illuminer.model.UsuarioLogin;
+import com.projetointegrador.illuminer.repository.UsuarioRepository;
 
 @Service
 public class UsuarioService {
