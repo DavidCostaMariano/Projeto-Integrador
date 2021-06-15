@@ -13,17 +13,22 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Null;
 import javax.validation.constraints.Size;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
+import com.projetointegrador.illuminer.validations.ValidationGroupId;
 
 @JsonInclude(Include.NON_NULL)
 @Entity
 @Table(name = "tb_usuario")
 public class Usuario {
 
+	@NotNull(groups = { ValidationGroupId.class })
+	@Null
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;

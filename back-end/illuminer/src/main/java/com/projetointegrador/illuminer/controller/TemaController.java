@@ -2,9 +2,12 @@ package com.projetointegrador.illuminer.controller;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,6 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.projetointegrador.illuminer.model.Tema;
 import com.projetointegrador.illuminer.repository.TemaRepository;
+import com.projetointegrador.illuminer.validations.ValidationGroupAtualizacaoTema;
 
 @RestController
 @RequestMapping ("/temas")
@@ -43,19 +47,15 @@ public class TemaController {
 	}
 	
 	@PostMapping
-	public ResponseEntity<Tema> post (@RequestBody Tema tema) {
-		if(tema.getId()!= null) {
-			return ResponseEntity.badRequest().build();
-		}
+	public ResponseEntity<Tema> post (@RequestBody @Valid Tema tema) {
 		return ResponseEntity.status(HttpStatus.CREATED).body(repository.save(tema));
 	}
 	
-	@PutMapping ("/{id}")
-	public ResponseEntity<Tema> put (@RequestBody Tema tema, @PathVariable Long id) {
-		if (!repository.existsById(id)){
+	@PutMapping
+	public ResponseEntity<Tema> put (@RequestBody @Validated(ValidationGroupAtualizacaoTema.class) Tema tema) {
+		if (!repository.existsById(tema.getId())){
 			return ResponseEntity.notFound().build();
 		}
-		tema.setId(id);
 		return ResponseEntity.ok(repository.save(tema));
 	}
 	

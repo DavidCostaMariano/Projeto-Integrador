@@ -2,11 +2,14 @@ package com.projetointegrador.illuminer.controller;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -18,6 +21,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.projetointegrador.illuminer.model.Postagem;
 import com.projetointegrador.illuminer.repository.PostagemRepository;
+import com.projetointegrador.illuminer.repository.TemaRepository;
+import com.projetointegrador.illuminer.repository.UsuarioRepository;
+import com.projetointegrador.illuminer.validations.ValidationGroupAtualizacaoPostagem;
 
 @RestController
 @RequestMapping("/postagens")
@@ -26,6 +32,12 @@ public class PostagemController {
 	@Autowired
 	private PostagemRepository postagemRepository;
 	
+	
+	@Autowired
+	private TemaRepository  temaRepository;
+	
+	@Autowired
+	private UsuarioRepository usuarioRepository;
 	
 	@GetMapping
 	public ResponseEntity<List<Postagem>> listarTodos() {
@@ -53,23 +65,23 @@ public class PostagemController {
 	}
 	
 	@PostMapping
-	public ResponseEntity<Postagem> criar(@RequestBody Postagem postagem) {
-		if(postagem.getId() != null) {
-			return ResponseEntity.badRequest().build();
+	public ResponseEntity<Postagem> criar(@RequestBody @Valid Postagem postagem) {
+		if(temaRepository.existsById(postagem.getTema().getId()) == false || 
+				usuarioRepository.existsById(postagem.getUsuario().getId()) == false) {
+			return ResponseEntity.notFound().build();
 		}
 		postagem = postagemRepository.save(postagem);
 		postagem.getTema().setPostagens(null);
 		return ResponseEntity.status(HttpStatus.CREATED).body(postagem);
 	}
 
-	@PutMapping("/{id}")
-	public ResponseEntity<Postagem> atualizar(@PathVariable Long id, @RequestBody Postagem postagem) {
-		if(postagemRepository.existsById(id) == false) {
+	@PutMapping
+	public ResponseEntity<Postagem> atualizar(@RequestBody @Validated(ValidationGroupAtualizacaoPostagem.class) Postagem postagem) {
+		if(postagemRepository.existsById(postagem.getId()) == false || 
+				temaRepository.existsById(postagem.getTema().getId()) == false || 
+				usuarioRepository.existsById(postagem.getUsuario().getId()) == false) {
 			return ResponseEntity.notFound().build();
 		}
-		
-		postagem.setId(id);
-		
 		return ResponseEntity.ok(postagemRepository.save(postagem));
 	}
 	
