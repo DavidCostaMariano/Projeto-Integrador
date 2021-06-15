@@ -1,6 +1,7 @@
 package com.projetointegrador.illuminer.model;
 
 import java.util.Date;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -11,6 +12,7 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import javax.validation.groups.Default;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -21,11 +23,12 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
 @Table(name = "tb_postagem")
 public class Postagem {
 
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
-	@NotBlank
+	@NotBlank(groups = Default.class)
 	private String texto;
 	
 	@Temporal(TemporalType.TIMESTAMP)
@@ -40,6 +43,7 @@ public class Postagem {
 	@ManyToOne
 	private Tema tema;
 	
+	@NotNull
 	@ManyToOne
 	private Usuario usuario;
 
@@ -89,5 +93,13 @@ public class Postagem {
 
 	public void setTema(Tema tema) {
 		this.tema = tema;
+	}
+
+	public Usuario getUsuario() {
+		return usuario;
+	}
+
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
 	}
 }

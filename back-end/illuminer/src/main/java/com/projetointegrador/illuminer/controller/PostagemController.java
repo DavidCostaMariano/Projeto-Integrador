@@ -1,5 +1,7 @@
 package com.projetointegrador.illuminer.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -24,10 +26,18 @@ public class PostagemController {
 	@Autowired
 	private PostagemRepository postagemRepository;
 	
+	
 	@GetMapping
-	public ResponseEntity<Page<Postagem>> listarTodosPaginado(Pageable pageable) {
+	public ResponseEntity<List<Postagem>> listarTodos() {
+		return ResponseEntity.ok(postagemRepository.findAll());
+	}
+	
+	
+	@GetMapping("/pagina")
+	public ResponseEntity<Page<Postagem>> listarTodos(Pageable pageable) {
 		return ResponseEntity.ok(postagemRepository.findAll(pageable));
 	}
+		
 	
 	@GetMapping("/texto/{texto}")
 	public ResponseEntity<Page<Postagem>> listarPorTextoPaginado(@PathVariable String texto,
