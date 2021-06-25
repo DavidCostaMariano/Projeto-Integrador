@@ -1,4 +1,4 @@
 package com.projetointegrador.illuminer.validations;
 
-public interface ValidationGroupAtualizacaoTema {
+public interface ValidationGroupAtualizacaoComentario {
 }

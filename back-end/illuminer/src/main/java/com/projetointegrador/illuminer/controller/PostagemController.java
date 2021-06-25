@@ -21,7 +21,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.projetointegrador.illuminer.model.Postagem;
 import com.projetointegrador.illuminer.repository.PostagemRepository;
-import com.projetointegrador.illuminer.repository.TemaRepository;
 import com.projetointegrador.illuminer.repository.UsuarioRepository;
 import com.projetointegrador.illuminer.validations.ValidationGroupAtualizacaoPostagem;
 
@@ -31,10 +30,6 @@ public class PostagemController {
 
 	@Autowired
 	private PostagemRepository postagemRepository;
-	
-	
-	@Autowired
-	private TemaRepository  temaRepository;
 	
 	@Autowired
 	private UsuarioRepository usuarioRepository;
@@ -66,20 +61,17 @@ public class PostagemController {
 	
 	@PostMapping
 	public ResponseEntity<Postagem> criar(@RequestBody @Valid Postagem postagem) {
-		if(temaRepository.existsById(postagem.getTema().getId()) == false || 
-				usuarioRepository.existsById(postagem.getUsuario().getId()) == false) {
+		if(usuarioRepository.existsById(postagem.getUsuario().getId()) == false) {
 			return ResponseEntity.notFound().build();
 		}
 		postagem = postagemRepository.save(postagem);
-		postagem.getTema().setPostagens(null);
 		return ResponseEntity.status(HttpStatus.CREATED).body(postagem);
 	}
 
 	@PutMapping
 	public ResponseEntity<Postagem> atualizar(@RequestBody @Validated(ValidationGroupAtualizacaoPostagem.class) Postagem postagem) {
 		if(postagemRepository.existsById(postagem.getId()) == false || 
-				temaRepository.existsById(postagem.getTema().getId()) == false || 
-				usuarioRepository.existsById(postagem.getUsuario().getId()) == false) {
+				 usuarioRepository.existsById(postagem.getUsuario().getId()) == false) {
 			return ResponseEntity.notFound().build();
 		}
 		return ResponseEntity.ok(postagemRepository.save(postagem));

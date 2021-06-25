@@ -18,45 +18,40 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.projetointegrador.illuminer.model.Tema;
-import com.projetointegrador.illuminer.repository.TemaRepository;
-import com.projetointegrador.illuminer.validations.ValidationGroupAtualizacaoTema;
+import com.projetointegrador.illuminer.model.Comentario;
+import com.projetointegrador.illuminer.repository.ComentarioRepository;
+import com.projetointegrador.illuminer.validations.ValidationGroupAtualizacaoComentario;
 
 @RestController
-@RequestMapping ("/temas")
+@RequestMapping ("/comentarios")
 @CrossOrigin ("*")
-public class TemaController {
+public class ComentarioController {
 	
 	@Autowired
-	private TemaRepository repository;
+	private ComentarioRepository repository;
 	
 	@GetMapping
-	public ResponseEntity<List<Tema>> GetAll() {
+	public ResponseEntity<List<Comentario>> GetAll() {
 		return ResponseEntity.ok(repository.findAll());
 	}
 	
 	@GetMapping ("/{id}")
-	public ResponseEntity<Tema> GetById(@PathVariable Long id){
+	public ResponseEntity<Comentario> GetById(@PathVariable Long id){
 		return repository.findById(id).map(rest -> ResponseEntity.ok(rest))
 				.orElse(ResponseEntity.notFound().build());
 	}
 	
-	@GetMapping ("/tema/{tema}")
-	public ResponseEntity<List<Tema>> GetByTema(@PathVariable String tema) {
-		return ResponseEntity.ok(repository.findAllByNomeContainingIgnoreCase(tema));
-	}
-	
 	@PostMapping
-	public ResponseEntity<Tema> post (@RequestBody @Valid Tema tema) {
-		return ResponseEntity.status(HttpStatus.CREATED).body(repository.save(tema));
+	public ResponseEntity<Comentario> post (@RequestBody @Valid Comentario comentario) {
+		return ResponseEntity.status(HttpStatus.CREATED).body(repository.save(comentario));
 	}
 	
 	@PutMapping
-	public ResponseEntity<Tema> put (@RequestBody @Validated(ValidationGroupAtualizacaoTema.class) Tema tema) {
-		if (!repository.existsById(tema.getId())){
+	public ResponseEntity<Comentario> put (@RequestBody @Validated(ValidationGroupAtualizacaoComentario.class) Comentario comentario) {
+		if (!repository.existsById(comentario.getId())){
 			return ResponseEntity.notFound().build();
 		}
-		return ResponseEntity.ok(repository.save(tema));
+		return ResponseEntity.ok(repository.save(comentario));
 	}
 	
 	@DeleteMapping ("/{id}")

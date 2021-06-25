@@ -27,7 +27,7 @@ import com.projetointegrador.illuminer.validations.ValidationGroupId;
 @Table(name = "tb_usuario")
 public class Usuario {
 
-	@NotNull(groups = { ValidationGroupId.class })
+	@NotNull(groups =  ValidationGroupId.class)
 	@Null
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
