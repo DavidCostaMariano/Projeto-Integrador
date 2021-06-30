@@ -42,6 +42,7 @@ public class Comentario {
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date data = new java.sql.Date(System.currentTimeMillis());
 	
+	@NotNull(groups = { Default.class, ValidationGroupAtualizacaoComentario.class })
 	@Valid
 	@ConvertGroup(from = Default.class, to =  ValidationGroupId.class )
 	@ConvertGroup(from = ValidationGroupAtualizacaoComentario.class, to =  ValidationGroupId.class )
@@ -49,6 +50,7 @@ public class Comentario {
 	@JsonIgnoreProperties("postagens")
 	private Usuario usuario;
 	
+	@NotNull(groups = { Default.class, ValidationGroupAtualizacaoComentario.class })
 	@Valid
 	@ConvertGroup(from = Default.class, to =  ValidationGroupId.class )
 	@ConvertGroup(from = ValidationGroupAtualizacaoComentario.class, to =  ValidationGroupId.class )

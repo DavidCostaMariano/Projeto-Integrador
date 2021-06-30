@@ -48,13 +48,15 @@ public class Postagem {
 	
 	private String localizacao;
 	
+	
 	@OneToMany(mappedBy = "postagem", cascade = CascadeType.ALL)
-	private List<Comentario> comentarios = new ArrayList<Comentario>();
+	@JsonIgnoreProperties("postagem")
+	private List<Comentario> comentarios = new ArrayList<>();
 	
 	@Valid
 	@ConvertGroup(from = Default.class, to = ValidationGroupId.class)
 	@ConvertGroup(from = ValidationGroupAtualizacaoPostagem.class, to = ValidationGroupId.class)
-	@NotNull
+	@NotNull(groups = { Default.class, ValidationGroupAtualizacaoPostagem.class })
 	@ManyToOne
 	@JsonIgnoreProperties("postagens")
 	private Usuario usuario;
@@ -99,11 +101,11 @@ public class Postagem {
 		this.localizacao = localizacao;
 	}
 
-	public List<Comentario> getComentario() {
+	public List<Comentario> getComentarios() {
 		return comentarios;
 	}
 
-	public void setComentario(List<Comentario> comentario) {
+	public void setComentarios(List<Comentario> comentario) {
 		this.comentarios = comentario;
 	}
 

@@ -44,6 +44,10 @@ public class Usuario {
 	@NotBlank
 	private String senha;
 	
+	private String foto;
+	
+	private String fotoCapa;
+	
 	@JsonIgnoreProperties("usuario")
 	@OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL)
 	private List<Postagem> postagens = new ArrayList<>();
@@ -86,5 +90,21 @@ public class Usuario {
 
 	public void setPostagens(List<Postagem> postagens) {
 		this.postagens = postagens;
+	}
+
+	public String getFoto() {
+		return foto;
+	}
+
+	public void setFoto(String foto) {
+		this.foto = foto;
+	}
+
+	public String getFotoCapa() {
+		return fotoCapa;
+	}
+
+	public void setFotoCapa(String fotoCapa) {
+		this.fotoCapa = fotoCapa;
 	}
 }

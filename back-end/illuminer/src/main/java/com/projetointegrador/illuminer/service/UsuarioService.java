@@ -1,6 +1,7 @@
 package com.projetointegrador.illuminer.service;
 
 import java.nio.charset.Charset;
+import java.util.List;
 import java.util.Optional;
 
 import org.apache.commons.codec.binary.Base64;
@@ -10,6 +11,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.projetointegrador.illuminer.model.Usuario;
+import com.projetointegrador.illuminer.model.UsuarioDestaque;
 import com.projetointegrador.illuminer.model.UsuarioLogin;
 import com.projetointegrador.illuminer.repository.UsuarioRepository;
 
@@ -18,6 +20,7 @@ public class UsuarioService {
 
 	@Autowired
 	private UsuarioRepository repository;
+	
 	
 	public Usuario cadastrar(Usuario usuario) throws IllegalArgumentException { 
 		
@@ -47,5 +50,26 @@ public class UsuarioService {
 			}
 		}
 		return Optional.empty();
+	}
+	
+	public UsuarioDestaque obterUsuarioComMaisPostagens() {
+		List<Usuario> usuarios = repository.findAll();
+		int maior = 0;
+		Usuario usuarioComMaisPostagem = usuarios.get(0);
+		for(Usuario usuario : usuarios) {
+			if(usuario.getPostagens().size() > maior) {
+				maior = usuario.getPostagens().size();
+				usuarioComMaisPostagem = usuario;
+			}
+		}
+		
+		UsuarioDestaque usuarioDestaque = new UsuarioDestaque();
+		usuarioDestaque.setId(usuarioComMaisPostagem.getId());
+		usuarioDestaque.setNome(usuarioComMaisPostagem.getNome());
+		usuarioDestaque.setQtdPostagens(usuarioComMaisPostagem.getPostagens().size());
+		usuarioDestaque.setFoto(usuarioComMaisPostagem.getFoto());
+		
+		
+		return usuarioDestaque;
 	}
 }

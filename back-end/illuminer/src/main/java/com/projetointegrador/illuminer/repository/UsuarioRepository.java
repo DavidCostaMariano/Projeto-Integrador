@@ -11,4 +11,5 @@ import com.projetointegrador.illuminer.model.Usuario;
 public interface UsuarioRepository extends JpaRepository<Usuario, Long> {
 
 	Optional<Usuario> findByEmail(String usuario);
+	
 }

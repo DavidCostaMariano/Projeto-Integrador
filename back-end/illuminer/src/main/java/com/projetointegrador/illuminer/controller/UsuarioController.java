@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.projetointegrador.illuminer.model.Postagem;
 import com.projetointegrador.illuminer.model.Usuario;
+import com.projetointegrador.illuminer.model.UsuarioDestaque;
 import com.projetointegrador.illuminer.model.UsuarioLogin;
 import com.projetointegrador.illuminer.repository.PostagemRepository;
 import com.projetointegrador.illuminer.service.UsuarioService;
@@ -42,6 +43,12 @@ public class UsuarioController {
 		return ResponseEntity.ok(postagens);
 	}
 	
+
+	@GetMapping("/engajamento/postagens")
+	public ResponseEntity<UsuarioDestaque> obterUsuarioComMaisPostagem() {
+		return ResponseEntity.ok(usuarioService.obterUsuarioComMaisPostagens());
+	}
+	
 	
 	@PostMapping
 	public ResponseEntity<Usuario> cadastrar(@RequestBody @Valid Usuario usuario){
@@ -59,4 +66,5 @@ public class UsuarioController {
 				.map(login -> ResponseEntity.ok(login))
 				.orElse(ResponseEntity.status(HttpStatus.UNAUTHORIZED).build());
 	}
+	
 }

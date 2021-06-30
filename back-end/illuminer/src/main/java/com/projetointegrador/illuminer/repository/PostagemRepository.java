@@ -15,4 +15,5 @@ public interface PostagemRepository extends JpaRepository<Postagem, Long>{
 	
 	@Query(value = "SELECT * FROM tb_postagem p WHERE p.usuario_id = ?1", nativeQuery = true) 
 	Page<Postagem> listarPostagensPorUsuario(Long idUsuario, Pageable pageable);
+	
 }
