@@ -48,6 +48,9 @@ public class Usuario {
 	
 	private String fotoCapa;
 	
+	@NotBlank
+	private String tipo;
+	
 	@JsonIgnoreProperties("usuario")
 	@OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL)
 	private List<Postagem> postagens = new ArrayList<>();
@@ -107,4 +110,14 @@ public class Usuario {
 	public void setFotoCapa(String fotoCapa) {
 		this.fotoCapa = fotoCapa;
 	}
+
+	public String getTipo() {
+		return tipo;
+	}
+
+	public void setTipo(String tipo) {
+		this.tipo = tipo;
+	}
+	
+	
 }

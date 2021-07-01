@@ -32,5 +32,4 @@ public class PostagemService {
 		postagemDestaqueComentario.setTitulo(postagemComMaisComentarios.getTitulo());
 		return postagemDestaqueComentario;
 	}
-
 }
