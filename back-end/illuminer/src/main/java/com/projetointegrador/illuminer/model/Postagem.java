@@ -38,7 +38,7 @@ public class Postagem {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
-	@NotBlank(groups = { Default.class, ValidationGroupAtualizacaoPostagem.class })
+	@Null(groups = { Default.class, ValidationGroupAtualizacaoPostagem.class })
 	private String titulo;
 	
 	@NotBlank(groups = { Default.class, ValidationGroupAtualizacaoPostagem.class })
