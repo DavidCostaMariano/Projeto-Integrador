@@ -39,6 +39,9 @@ public class Postagem {
 	private Long id;
 	
 	@NotBlank(groups = { Default.class, ValidationGroupAtualizacaoPostagem.class })
+	private String titulo;
+	
+	@NotBlank(groups = { Default.class, ValidationGroupAtualizacaoPostagem.class })
 	private String texto;
 	
 	@Temporal(TemporalType.TIMESTAMP)
@@ -116,4 +119,14 @@ public class Postagem {
 	public void setUsuario(Usuario usuario) {
 		this.usuario = usuario;
 	}
+
+	public String getTitulo() {
+		return titulo;
+	}
+
+	public void setTitulo(String titulo) {
+		this.titulo = titulo;
+	}
+	
+	
 }

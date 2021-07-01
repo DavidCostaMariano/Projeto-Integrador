@@ -20,8 +20,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.projetointegrador.illuminer.model.Postagem;
+import com.projetointegrador.illuminer.model.PostagemDestaqueComentario;
 import com.projetointegrador.illuminer.repository.PostagemRepository;
 import com.projetointegrador.illuminer.repository.UsuarioRepository;
+import com.projetointegrador.illuminer.service.PostagemService;
 import com.projetointegrador.illuminer.validations.ValidationGroupAtualizacaoPostagem;
 
 @RestController
@@ -33,6 +35,9 @@ public class PostagemController {
 	
 	@Autowired
 	private UsuarioRepository usuarioRepository;
+	
+	@Autowired
+	private PostagemService postagemService;
 	
 	@GetMapping
 	public ResponseEntity<List<Postagem>> listarTodos() {
@@ -57,6 +62,11 @@ public class PostagemController {
 		return postagemRepository.findById(id)
 				.map(postagem -> ResponseEntity.ok(postagem))
 				.orElse(ResponseEntity.notFound().build());
+	}
+	
+	@GetMapping("/engajamento/comentarios")
+	public ResponseEntity<PostagemDestaqueComentario> obterPostagemComentario() {
+		return ResponseEntity.ok(postagemService.obterPostagemComMaisComentarios());
 	}
 	
 	@PostMapping
