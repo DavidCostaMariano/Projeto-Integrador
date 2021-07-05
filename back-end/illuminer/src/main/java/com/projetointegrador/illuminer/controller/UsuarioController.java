@@ -48,7 +48,7 @@ public class UsuarioController {
 	@GetMapping("/{id}/postagens")
 	public ResponseEntity<Page<Postagem>> listarPostagens(@PathVariable(name = "id") Long idUsuario, Pageable pageable) {
 		Page<Postagem> postagens = postagemRepository.listarPostagensPorUsuario(idUsuario, pageable);
-		//postagens.forEach(postagem -> postagem.setUsuario(null));
+		postagens.forEach(postagem -> postagem.setUsuario(null));
 		return ResponseEntity.ok(postagens);
 	}
 	
