@@ -10,6 +10,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -19,14 +20,17 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.projetointegrador.illuminer.model.Comentario;
 import com.projetointegrador.illuminer.model.Postagem;
 import com.projetointegrador.illuminer.model.PostagemDestaqueComentario;
+import com.projetointegrador.illuminer.repository.ComentarioRepository;
 import com.projetointegrador.illuminer.repository.PostagemRepository;
 import com.projetointegrador.illuminer.repository.UsuarioRepository;
 import com.projetointegrador.illuminer.service.PostagemService;
 import com.projetointegrador.illuminer.validations.ValidationGroupAtualizacaoPostagem;
 
 @RestController
+@CrossOrigin("*")
 @RequestMapping("/postagens")
 public class PostagemController {
 
@@ -38,6 +42,10 @@ public class PostagemController {
 	
 	@Autowired
 	private PostagemService postagemService;
+	
+	@Autowired
+	private ComentarioRepository comentarioRepository;
+	
 	
 	@GetMapping
 	public ResponseEntity<List<Postagem>> listarTodos() {
@@ -98,5 +106,14 @@ public class PostagemController {
 		postagemRepository.deleteById(id);
 		
 		return ResponseEntity.noContent().build();
+	}
+	
+	@GetMapping("/{id}/comentarios")
+	public ResponseEntity<List<Comentario>> listaComentario(@PathVariable Long id) {
+		return ResponseEntity.ok(comentarioRepository.listarComentariosPorPostagem(id));
+	}
+	@GetMapping("/{id}/comentarios/paginado")
+	public ResponseEntity<Page<Comentario>> paginacaoComentario(@PathVariable Long id, Pageable pageable){
+		return ResponseEntity.ok(comentarioRepository.paginarComentariosPorPostagem(id, pageable));
 	}
 }

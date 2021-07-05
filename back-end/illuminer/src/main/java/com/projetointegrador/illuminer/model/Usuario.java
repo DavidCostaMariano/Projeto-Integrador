@@ -48,12 +48,13 @@ public class Usuario {
 	
 	private String fotoCapa;
 	
-	@NotBlank
+	//@NotBlank
 	private String tipo;
 	
 	@JsonIgnoreProperties("usuario")
 	@OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL)
 	private List<Postagem> postagens = new ArrayList<>();
+
 
 	public Long getId() {
 		return id;
