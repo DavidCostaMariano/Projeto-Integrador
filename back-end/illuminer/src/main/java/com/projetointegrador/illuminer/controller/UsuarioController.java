@@ -10,6 +10,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -22,6 +23,7 @@ import com.projetointegrador.illuminer.model.Usuario;
 import com.projetointegrador.illuminer.model.UsuarioDestaque;
 import com.projetointegrador.illuminer.model.UsuarioLogin;
 import com.projetointegrador.illuminer.repository.PostagemRepository;
+import com.projetointegrador.illuminer.repository.UsuarioRepository;
 import com.projetointegrador.illuminer.service.UsuarioService;
 
 @RestController
@@ -31,6 +33,9 @@ public class UsuarioController {
 
 	@Autowired
 	private UsuarioService usuarioService;
+	
+	@Autowired
+	private UsuarioRepository usuarioRepository;
 	
 	@Autowired
 	private PostagemRepository postagemRepository;
@@ -65,6 +70,17 @@ public class UsuarioController {
 		return usuarioService.logar(usuarioLogin)
 				.map(login -> ResponseEntity.ok(login))
 				.orElse(ResponseEntity.status(HttpStatus.UNAUTHORIZED).build());
+	}
+	
+	@DeleteMapping("/{id}")
+	public ResponseEntity<Void> deletar(@PathVariable Long id) {
+		if(usuarioRepository.existsById(id) == false) {
+			return ResponseEntity.notFound().build();
+		}
+		
+		usuarioRepository.deleteById(id);
+		
+		return ResponseEntity.noContent().build();
 	}
 	
 }

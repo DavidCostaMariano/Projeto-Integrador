@@ -13,7 +13,7 @@ import com.projetointegrador.illuminer.model.Postagem;
 @Repository
 public interface CurtidaRepository extends JpaRepository<Curtida, CurtidaPK>{
 	
-	@Query(value = "select * from tb_curtida c where c.postagem_id = ?1")
+	@Query(value = "select * from tb_curtida c where c.postagem_id = ?1", nativeQuery = true)
 	List<Curtida> obterCurtidasPostagem(Postagem postagem);
 
 }
