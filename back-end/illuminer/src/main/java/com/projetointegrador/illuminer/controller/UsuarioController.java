@@ -9,7 +9,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -27,7 +26,6 @@ import com.projetointegrador.illuminer.model.UsuarioLogin;
 import com.projetointegrador.illuminer.repository.PostagemRepository;
 import com.projetointegrador.illuminer.repository.UsuarioRepository;
 import com.projetointegrador.illuminer.service.UsuarioService;
-import com.projetointegrador.illuminer.validations.ValidationGroupAtualizacaoPostagem;
 
 @RestController
 @RequestMapping("/usuarios")
@@ -43,9 +41,6 @@ public class UsuarioController {
 	@Autowired
 	private PostagemRepository postagemRepository;
 	
-
-	@Autowired
-	private UsuarioRepository usuarioRepository;
 	
 
 	@GetMapping("/{id}")

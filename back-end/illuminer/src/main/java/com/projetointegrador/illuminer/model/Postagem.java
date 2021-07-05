@@ -137,7 +137,7 @@ public class Postagem {
 	}
 	
 	public void tratarLinkVideo() {
-		if((!tipoMidia.isBlank() || tipoMidia != null) && tipoMidia.equalsIgnoreCase("video")) {
+		if((tipoMidia != null && !tipoMidia.isBlank()) && tipoMidia.equalsIgnoreCase("video")) {
 			String[] link = midia.split("=");
 			String linkValido = link[1].split("&")[0];
 			midia = String.format("https://www.youtube.com/embed/%s", linkValido);

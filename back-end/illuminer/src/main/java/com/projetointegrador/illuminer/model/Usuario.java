@@ -48,7 +48,7 @@ public class Usuario {
 	
 	private String fotoCapa;
 	
-	@NotBlank
+	//@NotBlank
 	private String tipo;
 	
 	@JsonIgnoreProperties("usuario")
