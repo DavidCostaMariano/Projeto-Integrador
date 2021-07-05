@@ -12,6 +12,12 @@ public class UsuarioLogin {
 	
 	private String token;
 	
+	private String foto;
+	
+	private String tipo;
+	
+	private String fotoCapa;
+	
 
 	public Long getId() {
 		return id;
@@ -52,6 +58,29 @@ public class UsuarioLogin {
 	public void setToken(String token) {
 		this.token = token;
 	}
-	
+
+	public String getFoto() {
+		return foto;
+	}
+
+	public void setFoto(String foto) {
+		this.foto = foto;
+	}
+
+	public String getTipo() {
+		return tipo;
+	}
+
+	public void setTipo(String tipo) {
+		this.tipo = tipo;
+	}
+
+	public String getFotoCapa() {
+		return fotoCapa;
+	}
+
+	public void setFotoCapa(String fotoCapa) {
+		this.fotoCapa = fotoCapa;
+	}	
 	
 }
