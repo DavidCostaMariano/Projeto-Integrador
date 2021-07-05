@@ -22,6 +22,7 @@ import com.projetointegrador.illuminer.model.Usuario;
 import com.projetointegrador.illuminer.model.UsuarioDestaque;
 import com.projetointegrador.illuminer.model.UsuarioLogin;
 import com.projetointegrador.illuminer.repository.PostagemRepository;
+import com.projetointegrador.illuminer.repository.UsuarioRepository;
 import com.projetointegrador.illuminer.service.UsuarioService;
 
 @RestController
@@ -33,8 +34,16 @@ public class UsuarioController {
 	private UsuarioService usuarioService;
 	
 	@Autowired
+	private UsuarioRepository usuarioRepository;
+	
+	@Autowired
 	private PostagemRepository postagemRepository;
 	
+	@GetMapping("/{id}")
+	public ResponseEntity<Usuario> getById(@PathVariable Long id){
+		return usuarioRepository.findById(id).map(usuario -> ResponseEntity.ok(usuario))
+				.orElse(ResponseEntity.notFound().build());
+	}
 	
 	@GetMapping("/{id}/postagens")
 	public ResponseEntity<Page<Postagem>> listarPostagens(@PathVariable(name = "id") Long idUsuario, Pageable pageable) {
@@ -43,12 +52,10 @@ public class UsuarioController {
 		return ResponseEntity.ok(postagens);
 	}
 	
-
 	@GetMapping("/engajamento/postagens")
 	public ResponseEntity<UsuarioDestaque> obterUsuarioComMaisPostagem() {
 		return ResponseEntity.ok(usuarioService.obterUsuarioComMaisPostagens());
 	}
-	
 	
 	@PostMapping
 	public ResponseEntity<Usuario> cadastrar(@RequestBody @Valid Usuario usuario){
