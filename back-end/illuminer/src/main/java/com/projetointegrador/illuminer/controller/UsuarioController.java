@@ -37,25 +37,34 @@ public class UsuarioController {
 	private UsuarioService usuarioService;
 	
 	@Autowired
+	private UsuarioRepository usuarioRepository;
+	
+	@Autowired
 	private PostagemRepository postagemRepository;
 	
+
 	@Autowired
 	private UsuarioRepository usuarioRepository;
 	
+
+	@GetMapping("/{id}")
+	public ResponseEntity<Usuario> getById(@PathVariable Long id){
+		return usuarioRepository.findById(id).map(usuario -> ResponseEntity.ok(usuario))
+				.orElse(ResponseEntity.notFound().build());
+	}
+
 	
 	@GetMapping("/{id}/postagens")
 	public ResponseEntity<Page<Postagem>> listarPostagens(@PathVariable(name = "id") Long idUsuario, Pageable pageable) {
 		Page<Postagem> postagens = postagemRepository.listarPostagensPorUsuario(idUsuario, pageable);
-		//postagens.forEach(postagem -> postagem.setUsuario(null));
+		postagens.forEach(postagem -> postagem.setUsuario(null));
 		return ResponseEntity.ok(postagens);
 	}
 	
-
 	@GetMapping("/engajamento/postagens")
 	public ResponseEntity<UsuarioDestaque> obterUsuarioComMaisPostagem() {
 		return ResponseEntity.ok(usuarioService.obterUsuarioComMaisPostagens());
 	}
-	
 	
 	@PostMapping
 	public ResponseEntity<Usuario> cadastrar(@RequestBody @Valid Usuario usuario){

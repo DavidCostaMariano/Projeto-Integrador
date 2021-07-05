@@ -30,10 +30,7 @@ public class ComentarioController {
 	@Autowired
 	private ComentarioRepository repository;
 	
-	@GetMapping
-	public ResponseEntity<List<Comentario>> GetAll() {
-		return ResponseEntity.ok(repository.findAll());
-	}
+	
 	
 	@GetMapping ("/{id}")
 	public ResponseEntity<Comentario> GetById(@PathVariable Long id){
