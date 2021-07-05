@@ -76,7 +76,7 @@ public class PostagemController {
 		if(usuarioRepository.existsById(postagem.getUsuario().getId()) == false) {
 			return ResponseEntity.notFound().build();
 		}
-		postagem.setTitulo(postagem.getTexto().substring(0, 50));
+		postagem.tratarTitulo();
 		postagem.tratarLinkVideo();
 		postagem = postagemRepository.save(postagem);
 		return ResponseEntity.status(HttpStatus.CREATED).body(postagem);
@@ -88,7 +88,7 @@ public class PostagemController {
 				 usuarioRepository.existsById(postagem.getUsuario().getId()) == false) {
 			return ResponseEntity.notFound().build();
 		}
-		postagem.setTitulo(postagem.getTexto().substring(0, 50));//TODO tratar problema de strings menroes que 50
+		postagem.tratarTitulo();
 		postagem.tratarLinkVideo();
 		return ResponseEntity.ok(postagemRepository.save(postagem));
 	}

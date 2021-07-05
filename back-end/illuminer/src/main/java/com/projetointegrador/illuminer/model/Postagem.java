@@ -128,12 +128,19 @@ public class Postagem {
 		this.titulo = titulo;
 	}
 	
+	public void tratarTitulo() {
+		if(texto.length() > 50) {
+			titulo = texto.substring(0, 50);
+		} else {
+			titulo = texto;
+		}
+	}
+	
 	public void tratarLinkVideo() {
 		if((!tipoMidia.isBlank() || tipoMidia != null) && tipoMidia.equalsIgnoreCase("video")) {
 			String[] link = midia.split("=");
 			String linkValido = link[1].split("&")[0];
 			midia = String.format("https://www.youtube.com/embed/%s", linkValido);
 		}
-	}
-	
+	}	
 }

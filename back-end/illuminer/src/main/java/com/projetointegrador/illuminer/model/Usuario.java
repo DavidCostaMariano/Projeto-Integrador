@@ -48,7 +48,7 @@ public class Usuario {
 	
 	private String fotoCapa;
 	
-	//@NotBlank
+	@NotBlank
 	private String tipo;
 	
 	@JsonIgnoreProperties("usuario")
@@ -119,6 +119,5 @@ public class Usuario {
 	public void setTipo(String tipo) {
 		this.tipo = tipo;
 	}
-	
 	
 }
