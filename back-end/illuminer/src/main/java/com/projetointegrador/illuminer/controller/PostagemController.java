@@ -77,17 +77,19 @@ public class PostagemController {
 			return ResponseEntity.notFound().build();
 		}
 		postagem.setTitulo(postagem.getTexto().substring(0, 50));
+		postagem.tratarLinkVideo();
 		postagem = postagemRepository.save(postagem);
 		return ResponseEntity.status(HttpStatus.CREATED).body(postagem);
 	}
 
 	@PutMapping
 	public ResponseEntity<Postagem> atualizar(@RequestBody @Validated(ValidationGroupAtualizacaoPostagem.class) Postagem postagem) {
-		/*if(postagemRepository.existsById(postagem.getId()) == false || 
+		if(postagemRepository.existsById(postagem.getId()) == false || 
 				 usuarioRepository.existsById(postagem.getUsuario().getId()) == false) {
 			return ResponseEntity.notFound().build();
-		}*/
-		//postagem.setTitulo(postagem.getTexto().substring(0, 50));
+		}
+		postagem.setTitulo(postagem.getTexto().substring(0, 50));//TODO tratar problema de strings menroes que 50
+		postagem.tratarLinkVideo();
 		return ResponseEntity.ok(postagemRepository.save(postagem));
 	}
 	
