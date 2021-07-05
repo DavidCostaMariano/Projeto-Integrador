@@ -47,6 +47,10 @@ public class UsuarioService {
 				usuarioLogin.get().setToken("Basic " + new String(encodedAuth));
 				usuarioLogin.get().setNome(usuarioDB.get().getNome());
 				usuarioLogin.get().setId(usuarioDB.get().getId());
+				usuarioLogin.get().setFoto(usuarioDB.get().getFoto());
+				usuarioLogin.get().setTipo(usuarioDB.get().getTipo());
+				usuarioLogin.get().setEmail(usuarioDB.get().getEmail());
+				usuarioLogin.get().setFotoCapa(usuarioDB.get().getFotoCapa());
 				return usuarioLogin;
 			}
 		}
