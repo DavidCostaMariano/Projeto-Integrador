@@ -10,6 +10,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -27,6 +28,7 @@ import com.projetointegrador.illuminer.service.PostagemService;
 import com.projetointegrador.illuminer.validations.ValidationGroupAtualizacaoPostagem;
 
 @RestController
+@CrossOrigin("*")
 @RequestMapping("/postagens")
 public class PostagemController {
 
@@ -81,11 +83,11 @@ public class PostagemController {
 
 	@PutMapping
 	public ResponseEntity<Postagem> atualizar(@RequestBody @Validated(ValidationGroupAtualizacaoPostagem.class) Postagem postagem) {
-		if(postagemRepository.existsById(postagem.getId()) == false || 
+		/*if(postagemRepository.existsById(postagem.getId()) == false || 
 				 usuarioRepository.existsById(postagem.getUsuario().getId()) == false) {
 			return ResponseEntity.notFound().build();
-		}
-		postagem.setTitulo(postagem.getTexto().substring(0, 50));
+		}*/
+		//postagem.setTitulo(postagem.getTexto().substring(0, 50));
 		return ResponseEntity.ok(postagemRepository.save(postagem));
 	}
 	
