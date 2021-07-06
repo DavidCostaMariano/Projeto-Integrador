@@ -37,25 +37,24 @@ public class Postagem {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	
+
 	@Null(groups = { Default.class, ValidationGroupAtualizacaoPostagem.class })
 	private String titulo;
-	
+
 	@NotBlank(groups = { Default.class, ValidationGroupAtualizacaoPostagem.class })
 	private String texto;
-	
+
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date data = new java.sql.Date(System.currentTimeMillis());
-	
+
 	private String midia;
-	
+
 	private String tipoMidia;
-	
-	
+
 	@OneToMany(mappedBy = "postagem", cascade = CascadeType.ALL)
 	@JsonIgnoreProperties("postagem")
 	private List<Comentario> comentarios = new ArrayList<>();
-	
+
 	@Valid
 	@ConvertGroup(from = Default.class, to = ValidationGroupId.class)
 	@ConvertGroup(from = ValidationGroupAtualizacaoPostagem.class, to = ValidationGroupId.class)
@@ -127,20 +126,22 @@ public class Postagem {
 	public void setTitulo(String titulo) {
 		this.titulo = titulo;
 	}
-	
+
 	public void tratarTitulo() {
-		if(texto.length() > 50) {
+		if (texto.length() > 50) {
 			titulo = texto.substring(0, 50);
 		} else {
 			titulo = texto;
 		}
 	}
-	
+
 	public void tratarLinkVideo() {
-		if((tipoMidia != null && !tipoMidia.isBlank()) && tipoMidia.equalsIgnoreCase("video")) {
-			String[] link = midia.split("=");
-			String linkValido = link[1].split("&")[0];
-			midia = String.format("https://www.youtube.com/embed/%s", linkValido);
+		if ((midia != null && !midia.isBlank()) && (tipoMidia != null &&  tipoMidia.equalsIgnoreCase("video"))) {
+			if (!midia.contains("embed")) {
+				String[] link = midia.split("=");
+				String linkValido = link[1].split("&")[0];
+				midia = String.format("https://www.youtube.com/embed/%s", linkValido);
+			}
 		}
-	}	
+	}
 }

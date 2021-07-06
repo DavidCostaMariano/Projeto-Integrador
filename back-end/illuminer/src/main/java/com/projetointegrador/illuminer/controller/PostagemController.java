@@ -96,7 +96,6 @@ public class PostagemController {
 		}
 		postagem.tratarTitulo();
 		postagem.tratarLinkVideo();
-		postagem.setTitulo(postagem.getTexto().substring(0, 50));
 		return ResponseEntity.ok(postagemRepository.save(postagem));
 	}
 	
