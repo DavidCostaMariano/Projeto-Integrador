@@ -84,6 +84,9 @@ public class UsuarioController {
 		if(usuarioRepository.existsById(usuario.getId()) == false) {
 			return ResponseEntity.notFound().build();
 		}
+		
+		usuario.setPostagens(null);
+		
 		return ResponseEntity.ok(usuarioRepository.save(usuario));
 	}
   
