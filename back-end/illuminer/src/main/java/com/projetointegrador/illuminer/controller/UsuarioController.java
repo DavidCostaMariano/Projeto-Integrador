@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.projetointegrador.illuminer.model.Curtida;
 import com.projetointegrador.illuminer.model.Postagem;
 import com.projetointegrador.illuminer.model.Usuario;
 import com.projetointegrador.illuminer.model.UsuarioDestaque;
@@ -63,8 +64,8 @@ public class UsuarioController {
 	}
 	
 	/*@GetMapping("/{id}/curtida")
-	public ResponseEntity<Usuario> obterCurtidasUsuarios() {
-		return ResponseEntity.ok(usuarioService.obterCurtidasUsuario());
+	public ResponseEntity<Curtida> obterCurtidasUsuario() {
+		return ResponseEntity.ok(curtidaService.obterCurtidasUsuario());
 	}*/
 	
 	@PostMapping
