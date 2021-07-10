@@ -62,6 +62,11 @@ public class UsuarioController {
 		return ResponseEntity.ok(usuarioService.obterUsuarioComMaisPostagens());
 	}
 	
+	/*@GetMapping("/{id}/curtida")
+	public ResponseEntity<Usuario> obterCurtidasUsuarios() {
+		return ResponseEntity.ok(usuarioService.obterCurtidasUsuario());
+	}*/
+	
 	@PostMapping
 	public ResponseEntity<Usuario> cadastrar(@RequestBody @Valid Usuario usuario){
 		try {
