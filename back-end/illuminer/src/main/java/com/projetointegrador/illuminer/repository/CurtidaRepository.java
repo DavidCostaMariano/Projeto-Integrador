@@ -14,5 +14,8 @@ public interface CurtidaRepository extends JpaRepository<Curtida, CurtidaPK>{
 	
 	@Query(value = "select * from tb_curtida c where c.postagem_id = ?1", nativeQuery = true)
 	List<Curtida> obterCurtidasPostagem(Postagem postagem);
+	
+	@Query(value = "SELECT * FROM tb_curtida c WHERE c.usuario_id = ?1", nativeQuery = true)
+	List<Curtida> obterCurtidasDeUmUsuario(Long id);
 
 }

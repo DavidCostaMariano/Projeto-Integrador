@@ -3,6 +3,7 @@ package com.projetointegrador.illuminer.model;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -54,6 +55,10 @@ public class Postagem {
 	@OneToMany(mappedBy = "postagem", cascade = CascadeType.ALL)
 	@JsonIgnoreProperties("postagem")
 	private List<Comentario> comentarios = new ArrayList<>();
+	
+	@OneToMany(mappedBy = "id.postagem", cascade = CascadeType.ALL)
+	@JsonIgnoreProperties("id.postagem")
+	private List<Curtida> curtidas = new ArrayList<>();
 
 	@Valid
 	@ConvertGroup(from = Default.class, to = ValidationGroupId.class)
@@ -126,6 +131,15 @@ public class Postagem {
 	public void setTitulo(String titulo) {
 		this.titulo = titulo;
 	}
+	
+
+	public List<Curtida> getCurtidas() {
+		return curtidas;
+	}
+
+	public void setCurtidas(List<Curtida> curtidas) {
+		this.curtidas = curtidas;
+	}
 
 	public void tratarTitulo() {
 		if (texto.length() > 50) {
@@ -143,5 +157,9 @@ public class Postagem {
 				midia = String.format("https://www.youtube.com/embed/%s", linkValido);
 			}
 		}
+	}
+	
+	public void ordernarComentarios() {
+		comentarios = comentarios.stream().sorted((c1, c2) -> c1.getData().compareTo(c2.getData())).collect(Collectors.toList());
 	}
 }

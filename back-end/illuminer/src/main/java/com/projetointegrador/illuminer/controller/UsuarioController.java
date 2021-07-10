@@ -19,13 +19,14 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.projetointegrador.illuminer.model.Curtida;
+import com.projetointegrador.illuminer.model.AtividadeAluno;
 import com.projetointegrador.illuminer.model.Postagem;
 import com.projetointegrador.illuminer.model.Usuario;
 import com.projetointegrador.illuminer.model.UsuarioDestaque;
 import com.projetointegrador.illuminer.model.UsuarioLogin;
 import com.projetointegrador.illuminer.repository.PostagemRepository;
 import com.projetointegrador.illuminer.repository.UsuarioRepository;
+import com.projetointegrador.illuminer.service.AtividadeService;
 import com.projetointegrador.illuminer.service.UsuarioService;
 
 @RestController
@@ -41,6 +42,9 @@ public class UsuarioController {
 	
 	@Autowired
 	private PostagemRepository postagemRepository;
+	
+	@Autowired
+	private AtividadeService atividadeService;
 	
 	
 
@@ -63,10 +67,26 @@ public class UsuarioController {
 		return ResponseEntity.ok(usuarioService.obterUsuarioComMaisPostagens());
 	}
 	
+
 	/*@GetMapping("/{id}/curtida")
 	public ResponseEntity<Curtida> obterCurtidasUsuario() {
 		return ResponseEntity.ok(curtidaService.obterCurtidasUsuario());
 	}*/
+
+	@GetMapping("/{id}/atividades")
+	public ResponseEntity<Page<AtividadeAluno>> obterAtividadesAluno(@PathVariable(name = "id") Long idAluno, Pageable pageable) {
+		if(!usuarioRepository.existsById(idAluno)) {
+			return ResponseEntity.notFound().build();
+		} 
+		
+		Usuario usuario = usuarioRepository.findById(idAluno).get();
+		if(usuario.getTipo().equalsIgnoreCase("aluno")) {
+			return ResponseEntity.ok(atividadeService.obterAtividadesAluno(idAluno, pageable));
+		} else {
+			return ResponseEntity.badRequest().build();
+		}
+	}
+
 	
 	@PostMapping
 	public ResponseEntity<Usuario> cadastrar(@RequestBody @Valid Usuario usuario){

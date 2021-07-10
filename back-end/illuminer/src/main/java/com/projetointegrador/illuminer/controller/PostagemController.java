@@ -23,9 +23,11 @@ import org.springframework.web.bind.annotation.RestController;
 import com.projetointegrador.illuminer.model.Comentario;
 import com.projetointegrador.illuminer.model.Postagem;
 import com.projetointegrador.illuminer.model.PostagemDestaqueComentario;
+import com.projetointegrador.illuminer.model.PostagemDestaqueCurtida;
 import com.projetointegrador.illuminer.repository.ComentarioRepository;
 import com.projetointegrador.illuminer.repository.PostagemRepository;
 import com.projetointegrador.illuminer.repository.UsuarioRepository;
+import com.projetointegrador.illuminer.service.CurtidaService;
 import com.projetointegrador.illuminer.service.PostagemService;
 import com.projetointegrador.illuminer.validations.ValidationGroupAtualizacaoPostagem;
 
@@ -44,37 +46,53 @@ public class PostagemController {
 	private PostagemService postagemService;
 	
 	@Autowired
+	private CurtidaService curtidaService;
+	
+	@Autowired
 	private ComentarioRepository comentarioRepository;
 	
 	
 	@GetMapping
 	public ResponseEntity<List<Postagem>> listarTodos() {
-		return ResponseEntity.ok(postagemRepository.findAll());
+		List<Postagem> postagens = postagemRepository.findAll();
+		postagens.forEach(postagem -> postagem.ordernarComentarios());
+		return ResponseEntity.ok(postagens);
 	}
 	
 	
 	@GetMapping("/pagina")
 	public ResponseEntity<Page<Postagem>> listarTodos(Pageable pageable) {
-		return ResponseEntity.ok(postagemRepository.findAll(pageable));
+		Page<Postagem> page = postagemRepository.findAll(pageable);
+		page.getContent().forEach(postagem -> postagem.ordernarComentarios());
+		return ResponseEntity.ok(page);
 	}
 		
 	
 	@GetMapping("/texto/{texto}")
 	public ResponseEntity<Page<Postagem>> listarPorTextoPaginado(@PathVariable String texto,
 			Pageable pageable) {
-		return ResponseEntity.ok(postagemRepository.findByTextoContainingIgnoreCase(texto, pageable));
+		Page<Postagem> page = postagemRepository.findByTextoContainingIgnoreCase(texto, pageable);
+		page.getContent().forEach(postagem -> postagem.ordernarComentarios());
+		return ResponseEntity.ok(page);
 	}
 	
 	@GetMapping("/{id}")
 	public ResponseEntity<Postagem> obterPorId(@PathVariable Long id) {
 		return postagemRepository.findById(id)
-				.map(postagem -> ResponseEntity.ok(postagem))
-				.orElse(ResponseEntity.notFound().build());
+				.map(postagem -> {
+					postagem.ordernarComentarios();
+					return ResponseEntity.ok(postagem);
+				}).orElse(ResponseEntity.notFound().build());
 	}
 	
 	@GetMapping("/engajamento/comentarios")
 	public ResponseEntity<PostagemDestaqueComentario> obterPostagemComentario() {
 		return ResponseEntity.ok(postagemService.obterPostagemComMaisComentarios());
+	}
+	
+	@GetMapping("/engajamento/curtidas")
+	public ResponseEntity<PostagemDestaqueCurtida> obterPostagemCurtida() {
+		return ResponseEntity.ok(curtidaService.obterPostagemComMaisCurtidas());
 	}
 	
 	@PostMapping
@@ -85,6 +103,7 @@ public class PostagemController {
 		postagem.tratarTitulo();
 		postagem.tratarLinkVideo();
 		postagem = postagemRepository.save(postagem);
+		postagem.ordernarComentarios();
 		return ResponseEntity.status(HttpStatus.CREATED).body(postagem);
 	}
 
@@ -114,6 +133,7 @@ public class PostagemController {
 	public ResponseEntity<List<Comentario>> listaComentario(@PathVariable Long id) {
 		return ResponseEntity.ok(comentarioRepository.listarComentariosPorPostagem(id));
 	}
+	
 	@GetMapping("/{id}/comentarios/paginado")
 	public ResponseEntity<Page<Comentario>> paginacaoComentario(@PathVariable Long id, Pageable pageable){
 		return ResponseEntity.ok(comentarioRepository.paginarComentariosPorPostagem(id, pageable));
