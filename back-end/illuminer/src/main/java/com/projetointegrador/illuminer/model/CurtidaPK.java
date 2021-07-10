@@ -5,15 +5,19 @@ import java.io.Serializable;
 import javax.persistence.Embeddable;
 import javax.persistence.ManyToOne;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 @Embeddable
 public class CurtidaPK implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@ManyToOne
+	@JsonIgnoreProperties("postagens")
 	private Usuario usuario;
 	
 	
 	@ManyToOne
+	@JsonIgnoreProperties({"curtidas", "comentarios" })
 	private Postagem postagem;
 
 
