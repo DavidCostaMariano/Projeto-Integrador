@@ -13,7 +13,10 @@ public interface PostagemRepository extends JpaRepository<Postagem, Long>{
 
 	Page<Postagem> findByTextoContainingIgnoreCase(String texto, Pageable pageable);
 	
+	Page<Postagem> findById(Long id, Pageable pageable);
+	
 	@Query(value = "SELECT * FROM tb_postagem p WHERE p.usuario_id = ?1", nativeQuery = true) 
 	Page<Postagem> listarPostagensPorUsuario(Long idUsuario, Pageable pageable);
+	
 	
 }
