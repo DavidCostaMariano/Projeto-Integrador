@@ -66,6 +66,13 @@ public class PostagemController {
 		page.getContent().forEach(postagem -> postagem.ordernarComentarios());
 		return ResponseEntity.ok(page);
 	}
+	@GetMapping("/pagina/{id}")
+	public ResponseEntity<Page<Postagem>> listarPorEngajamento(@PathVariable Long id, 
+			Pageable pageable) {
+		Page<Postagem> page = postagemRepository.findById(id, pageable);
+		page.getContent().forEach(postagem -> postagem.ordernarComentarios());
+		return ResponseEntity.ok(page);
+	}
 		
 	
 	@GetMapping("/texto/{texto}")
