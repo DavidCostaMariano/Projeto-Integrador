@@ -21,10 +21,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.projetointegrador.illuminer.model.Comentario;
+import com.projetointegrador.illuminer.model.Curtida;
+import com.projetointegrador.illuminer.model.CurtidaPK;
 import com.projetointegrador.illuminer.model.Postagem;
 import com.projetointegrador.illuminer.model.PostagemDestaqueComentario;
 import com.projetointegrador.illuminer.model.PostagemDestaqueCurtida;
 import com.projetointegrador.illuminer.repository.ComentarioRepository;
+import com.projetointegrador.illuminer.repository.CurtidaRepository;
 import com.projetointegrador.illuminer.repository.PostagemRepository;
 import com.projetointegrador.illuminer.repository.UsuarioRepository;
 import com.projetointegrador.illuminer.service.CurtidaService;
@@ -47,6 +50,9 @@ public class PostagemController {
 	
 	@Autowired
 	private CurtidaService curtidaService;
+	
+	@Autowired
+	private CurtidaRepository curtidaRepository;
 	
 	@Autowired
 	private ComentarioRepository comentarioRepository;
@@ -100,6 +106,11 @@ public class PostagemController {
 	@GetMapping("/engajamento/curtidas")
 	public ResponseEntity<PostagemDestaqueCurtida> obterPostagemCurtida() {
 		return ResponseEntity.ok(curtidaService.obterPostagemComMaisCurtidas());
+	}
+	
+	@GetMapping("/{id}/curtidas")
+	public ResponseEntity<List<Curtida>> obterCurtidasPostagem(Postagem postagem) {
+		return ResponseEntity.ok(curtidaRepository.obterCurtidasPostagem(postagem));
 	}
 	
 	@PostMapping
