@@ -38,6 +38,7 @@ public class AtividadeService {
 			atividadeAluno.setNomeAutorPostagem(comentario.getPostagem().getUsuario().getNome());
 			atividadeAluno.setData(comentario.getData());
 			atividadeAluno.setTexto(comentario.getTexto().length() > 50 ? comentario.getTexto().substring(0, 50) : comentario.getTexto());
+			atividadeAluno.setTextoPost(comentario.getPostagem().getTitulo());
 			atividadeAluno.setTipo("comentario");
 			atividadesAluno.add(atividadeAluno);
 		});
@@ -48,7 +49,7 @@ public class AtividadeService {
 			atividadeAluno.setIdAutorPostagem(curtida.getId().getPostagem().getUsuario().getId());
 			atividadeAluno.setNomeAutorPostagem(curtida.getId().getPostagem().getUsuario().getNome());
 			atividadeAluno.setData(curtida.getData());
-			atividadeAluno.setTexto(curtida.getId().getPostagem().getTitulo());
+			atividadeAluno.setTextoPost(curtida.getId().getPostagem().getTitulo());
 			atividadeAluno.setTipo("curtida");
 			atividadesAluno.add(atividadeAluno);
 		});

@@ -17,6 +17,8 @@ public class AtividadeAluno {
 	
 	private String texto;
 	
+	private String textoPost;
+	
 	private String tipo;
 	
 
@@ -67,5 +69,12 @@ public class AtividadeAluno {
 	public void setTipo(String tipo) {
 		this.tipo = tipo;
 	}
-	
+
+	public String getTextoPost() {
+		return textoPost;
+	}
+
+	public void setTextoPost(String textoPost) {
+		this.textoPost = textoPost;
+	}
 }
