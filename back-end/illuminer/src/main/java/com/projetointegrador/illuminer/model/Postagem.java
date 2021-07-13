@@ -173,12 +173,6 @@ public class Postagem {
 		return true;
 	}
 
-	@Override
-	public String toString() {
-		return "Postagem [id=" + id + ", titulo=" + titulo + ", texto=" + texto + ", data=" + data + ", midia=" + midia
-				+ ", tipoMidia=" + tipoMidia + ", comentarios=" + comentarios + ", curtidas=" + curtidas + ", usuario="
-				+ usuario + "]";
-	}
 
 	public void tratarTitulo() {
 		if (texto.length() > 50) {

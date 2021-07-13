@@ -77,8 +77,4 @@ public class Curtida {
 		return true;
 	}
 
-	@Override
-	public String toString() {
-		return "Curtida [id=" + id + ", data=" + data + "]";
-	}
 }

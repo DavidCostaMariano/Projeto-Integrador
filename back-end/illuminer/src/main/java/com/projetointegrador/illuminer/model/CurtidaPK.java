@@ -78,8 +78,4 @@ public class CurtidaPK implements Serializable {
 		return true;
 	}
 
-	@Override
-	public String toString() {
-		return "CurtidaPK [usuario=" + usuario + ", postagem=" + postagem + "]";
-	}
 }

@@ -150,9 +150,4 @@ public class Usuario {
 		return true;
 	}
 
-	@Override
-	public String toString() {
-		return "Usuario [id=" + id + ", nome=" + nome + ", email=" + email + ", senha=" + senha + ", foto=" + foto
-				+ ", fotoCapa=" + fotoCapa + ", tipo=" + tipo + ", postagens=" + postagens + "]";
-	}
 }
