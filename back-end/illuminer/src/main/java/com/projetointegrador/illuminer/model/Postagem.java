@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -43,6 +44,7 @@ public class Postagem {
 	private String titulo;
 
 	@NotBlank(groups = { Default.class, ValidationGroupAtualizacaoPostagem.class })
+	@Column(length = 500)
 	private String texto;
 
 	@Temporal(TemporalType.TIMESTAMP)
